@@ -1,0 +1,33 @@
+<h4> Hey <strong><%= current_user.username %>! </strong> Here is what your friends are talking about...</h4>
+
+
+<%= form_for @tweet, url: {action: "epi_tweet"} do |f| %>
+	  <%= f.text_field :message, class: "form-control" %>
+	  <%= f.hidden_field :user_id, value: current_user.id %>
+	  <%= f.submit "New Tweet", class: "btn btn-primary" %>
+<% end %>
+
+<br>
+<br>
+
+
+
+<div class="container">
+	<% @following_tweets.each do |tweet| %>
+		<div class="well  well-doc" >
+			<div class="media">
+			  <div class="media-left media-top">
+			    <%= image_tag tweet.user.avatar.thumb, class: "img-circle"%>
+			  </div>
+			  <div class="media-body">
+			    <h5 class="media-heading"></h5>
+			    <p>@<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %> wrote:</p>
+			    <p><%= tweet.message.html_safe %></p>
+			    <p>Posted <%= time_ago_in_words(tweet.created_at) %> ago</p>
+
+				</div>
+			</div>
+		</div>
+
+  <% end %>
+</div>
