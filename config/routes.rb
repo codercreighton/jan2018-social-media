@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'unfollow' =>'epicenter#unfollow'
   post 'epi_tweet' => 'epicenter#epi_tweet'
+  get 'tag_tweets' => 'epicenter#tag_tweets'
 
   resources :tweets
   devise_for :users
