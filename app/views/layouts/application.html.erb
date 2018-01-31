@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Jan2018SocialMedia</title>
+    <%= favicon_link_tag "birdie.png" %>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -25,8 +26,11 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><%= link_to "Compose New Tweet", new_tweet_path %></li>
-           <li><%= link_to "All Tweets", tweets_path %></li>
-         
+          <li><%= link_to "All Tweets", tweets_path %></li>
+          <li><%= link_to "All Users", all_users_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "My User Page", my_user_page_path %></li>
+          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
@@ -47,7 +51,52 @@
     </div>
   </nav>
 	  <div class="container">
-	    <%= yield %>
-	  </div>
+	     <% if user_signed_in? %>
+      <div class="row" >
+        <div class="col-lg-3">
+          <div class="well" >
+          
+          <!-- This side of the page will contain current_user profile information which will appear on every page -->
+            <center>
+              <p><%= image_tag current_user.avatar.url, class: "show-pic img-circle" %></p>
+              <h4>Currently logged in as: </h4>
+              <p><strong><%= link_to current_user.name, show_user_path(id: current_user.id) %></strong> @<%= current_user.username %></p>
+              <p>Location: <strong><%= current_user.location %></strong></p>
+               <p>Following: <%= link_to current_user.following.count , following_path(id: current_user.id) %></p>
+              <p>Followers: <%= link_to current_user_followers, followers_path(id: current_user.id) %></p>
+              
+
+            </center>
+    
+          </div>
+        </div>
+       <div class="col-lg-6">
+         <div class="well"> 
+            <%= yield %>
+         </div>
+         </div> 
+         <center>
+            <div class="col-lg-3"> 
+              <div class="well">
+                <h4>What's Trending Now</h4>
+                <p>Top 3 Hashtags<p>
+                  <% hot_tags.each do |tag| %>
+                    <p><%= link_to tag.phrase, tag_tweets_path(id: tag.id) %></p>
+                  <% end %>
+
+                <p>Top Tweeter</p>  
+                  <p><%= link_to top_tweeter.username, show_user_path(id: top_tweeter.id) %> has sent <%= link_to top_number_tweets, show_user_path(id: top_tweeter.id) %></p>
+
+
+               
+              </div>
+            </div>
+          </center>
+          <% else %>
+            <%= yield %>
+          <% end %> 
+        </div>
+    </div> 
+
   </body>
 </html>

@@ -12,22 +12,26 @@
 
 
 
-<div class="container">
 	<% @following_tweets.each do |tweet| %>
-		<div class="well  well-doc" >
+		<div class="well well-doc" >
 			<div class="media">
 			  <div class="media-left media-top">
 			    <%= image_tag tweet.user.avatar.thumb, class: "img-circle"%>
 			  </div>
 			  <div class="media-body">
 			    <h5 class="media-heading"></h5>
-			    <p>@<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %> wrote:</p>
+			    <% if (Time.now - tweet.created_at) > 86400 %>
+			    	On
+			    <% end %>	
+			 <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %> <%= tweet.created_at.strftime("%b%e") if Time.now - tweet.created_at > 86400 %> <% if (Time.now - tweet.created_at) < 86400 %>
+			   	ago 
+			  <% end %>  @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>
+			  wrote:
 			    <p><%= tweet.message.html_safe %></p>
-			    <p>Posted <%= time_ago_in_words(tweet.created_at) %> ago</p>
+
 
 				</div>
 			</div>
 		</div>
 
   <% end %>
-</div>

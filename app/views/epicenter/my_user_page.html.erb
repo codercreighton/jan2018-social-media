@@ -1,10 +1,10 @@
-<h2>Here is information about @<%= @user.username %></h2>
+h2>Here is information about @<%= @user.username %></h2>
 
 <center><p>Name :@<%= @user.name %></p>
   <p>Location: <%= @user.location %></p>
   <p>About: <%= @user.bio %></p>
-  <p>Following <%= link_to @user.following.count, following_path(id: @user.id) %></p>
-   <p>Followers: <%= link_to @count, followers_path(id: @user.id) %></p>
+  <p><%= link_to "Following", following_path(id: @user.id) %></p>
+   <p><%= link_to "Followers", followers_path(id: @user.id) %></p>
   <p><%= image_tag @user.avatar.url, class: 'show-pic' %></p>
 
 

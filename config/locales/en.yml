@@ -31,6 +31,13 @@
 
 en:
   hello: "Hello world"
+  distance_in_words:
+    x_minutes:
+      one: "1m ago"
+      other: "About %{count}m"
+    about_x_hours:
+      one: "1h ago"
+      other: "About %{count}h"  
   activerecord:
     attributes:
       tweet:

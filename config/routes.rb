@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   post 'epi_tweet' => 'epicenter#epi_tweet'
   get 'tag_tweets' => 'epicenter#tag_tweets'
 
+  get 'all_users' => 'epicenter#all_users'
+  get 'following' => 'epicenter#following'
+  get 'followers' => 'epicenter#followers'
+  get 'my_user_page' => 'epicenter#my_user_page'
+
   resources :tweets
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

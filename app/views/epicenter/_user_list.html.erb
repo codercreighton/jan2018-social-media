@@ -1,0 +1,24 @@
+<div class="well">
+		<div class="row">
+			<% @users.each do |user| %>
+				<div class="col-lg-4">
+					<center>
+						<p><%= image_tag user.avatar.thumb, class: 'img-circle',style: 'background-color: lightblue;' %></p>
+
+							<% if current_user.following.include?(user.id) %>
+			      	<%= link_to 'Following', unfollow_path(id: user.id), class: 'btn btn-primary unfollow_btn', id: 'unfollow_btn' %>
+			    		<%else %>
+			        	<% if current_user.id != user.id %>
+			          		<%= link_to 'Follow', now_following_path(id: user.id), class: 'btn btn-primary' %>
+			          	<%else %>
+			          	<h4>Your Profile:</h4>
+			         	<% end %>
+			    		<% end %> 
+				    <p><%= link_to user.username, show_user_path(id: user.id) %></p>
+				    <p><%= user.location %></p>
+				    <p><%= user.bio %></p>   
+				  </center>           		
+	   		</div> 
+	   	<% end %>	
+	  </div>
+	</div>
